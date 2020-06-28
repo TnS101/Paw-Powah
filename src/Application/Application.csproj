@@ -14,10 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Register Services\" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
   
 </Project>
