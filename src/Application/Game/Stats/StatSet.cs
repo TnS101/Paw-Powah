@@ -41,8 +41,15 @@
             enemy.Resistance = baseEnemy.Resistance + (step * 1);
             enemy.CritChance = baseEnemy.CritChance + (enemy.Level * 0.02);
             enemy.ImagePath = baseEnemy.ImagePath;
-
+            enemy.Gold = (int)this.EnemyCombinedStats(enemy) / 20;
+            enemy.XPReward = (int)this.EnemyCombinedStats(enemy) / 10;
             return enemy;
+        }
+
+        private double EnemyCombinedStats(GeneratedEnemy enemy)
+        {
+            return enemy.MaxHP + enemy.MaxMana + enemy.AttackPower + enemy.MagicPower
+                + enemy.Armor + enemy.Resistance + enemy.HealthRegen + enemy.ManaRegen + enemy.CritChance;
         }
 
         private int StepCalculation(int monsterLevel)
