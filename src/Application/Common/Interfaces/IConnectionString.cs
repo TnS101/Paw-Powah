@@ -2,6 +2,8 @@
 {
     public interface IConnectionString
     {
-        string Path { get; }
+          string DefaultPath { get; }
+
+          string VolatilePath { get; }
     }
 }
