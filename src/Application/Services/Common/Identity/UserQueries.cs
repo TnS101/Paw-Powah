@@ -4,12 +4,13 @@
     using Application.Common.Service_Helpers;
     using Application.Services.Common.Users.ViewModels;
     using Application.Services.Interfaces.Identity;
+    using AutoMapper;
     using System.Threading.Tasks;
 
-    public class UserQueries : BaseService, IUserQueries
+    public class UserQueries : MapService, IUserQueries
     {
-        public UserQueries(IPawContext context)
-            :base(context)
+        public UserQueries(IMapper mapper, IPawContext context)
+            : base(mapper, context)
         {
         }
 

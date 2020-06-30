@@ -14,8 +14,6 @@
 
         public string Name { get; set; }
 
-        public int Level { get; set; }
-
         public double MaxHP { get; set; }
 
         public double MaxMana { get; set; }
