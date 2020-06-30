@@ -57,6 +57,8 @@
 
         public int Gold { get; set; }
 
+        public double XPReward { get; set; }
+
         public string ImagePath { get; set; }
 
         public ICollection<GeneratedEnemySpells> GeneratedEnemySpells { get; set; }
