@@ -12,6 +12,8 @@
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
 
+        public int LevelScore { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

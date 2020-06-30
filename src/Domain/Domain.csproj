@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Common\" />
-    <Folder Include="Entities\Game\" />
-    <Folder Include="Interfaces\" />
+    <Folder Include="Entities\Game\ManyToMany\" />
   </ItemGroup>
 
 </Project>

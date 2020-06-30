@@ -1,10 +1,12 @@
-﻿namespace Paw_Powah.Controllers.Common
+﻿namespace Paw_Powah.Controllers.api.Common
 {
     using Domain.Identity;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
 
+    [ApiController]
+    [Route("[controller]/[action]")]
     public class BaseController : Controller
     {
         private UserManager<AppUser> userManager;

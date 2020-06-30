@@ -1,6 +1,7 @@
 namespace Paw_Powah
 {
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Persistence.Context;
@@ -17,7 +18,7 @@ namespace Paw_Powah
 
                 var context = services.GetRequiredService<PawContext>();
 
-                context.Database.EnsureCreated();
+                context.Database.Migrate();
             }
 
             host.Run();

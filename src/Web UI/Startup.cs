@@ -1,21 +1,23 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using AutoMapper;
-using Application.Common.Register_Maps;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
-using Persistence.Context;
-using Application.Common.Interfaces;
-using Domain.Identity;
-
 namespace Paw_Powah
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using AutoMapper;
+    using Application.Common.Register_Maps;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Net.Http.Headers;
+    using Persistence.Context;
+    using Application.Common.Interfaces;
+    using Domain.Identity;
+    using Application.Common.Register_Services;
+    using Microsoft.EntityFrameworkCore;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -27,6 +29,9 @@ namespace Paw_Powah
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register Application Services
+            new ServiceRegister(services);
+
             // AutoMapper
             services.AddAutoMapper(typeof(Startup));
             var mappingConfig = new MapperConfiguration(mc =>
@@ -38,8 +43,16 @@ namespace Paw_Powah
             services.AddSingleton(mapper);
 
             // Database
-            services.AddDbContext<PawContext>()
-            .AddScoped<IPawContext, PawContext>();
+            services.AddDbContextPool<PawContext>(options =>
+                options.UseSqlServer(
+                    this.Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContextPool<VolatileContext>(options =>
+                options.UseSqlServer(
+                    this.Configuration.GetConnectionString("VolatileContextConnection")));
+
+            services.AddScoped<IPawContext, PawContext>();
+            services.AddScoped<IVolatileContext, VolatileContext>();
 
             // Identity
             services.AddDefaultIdentity<AppUser>(options =>

@@ -2,6 +2,7 @@
 {
     using Application.Common.Interfaces;
     using AutoMapper;
+    using Domain.Entities.Game.Units;
 
     public abstract class MapService
     {
