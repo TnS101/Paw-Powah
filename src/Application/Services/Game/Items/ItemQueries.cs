@@ -5,9 +5,9 @@
     using Application.Services.Interfaces.Game.Items;
     using AutoMapper;
 
-    public class AdminItemQueries : MapService, IItemQueries
+    public class ItemQueries : MapService, IItemQueries
     {
-        public AdminItemQueries(IMapper mapper, IPawContext context)
+        public ItemQueries(IMapper mapper, IPawContext context)
             :base(mapper, context)
         {
         }
