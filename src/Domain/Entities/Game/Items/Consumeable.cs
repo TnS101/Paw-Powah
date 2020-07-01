@@ -21,15 +21,9 @@
 
         public int Charges { get; set; }
 
-        public int ConsumeDuration { get; set; }
-
         public int BuyPrice { get; set; }
 
         public int SellPrice { get; set; }
-
-        public double HitBoxX { get; set; }
-
-        public double HitBoxY { get; set; }
 
         public ICollection<PlayerConsumeables> PlayerConsumeables { get; set; }
     }

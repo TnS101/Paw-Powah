@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Interfaces\Users\**" />
+    <EmbeddedResource Remove="Services\Interfaces\Users\**" />
+    <None Remove="Services\Interfaces\Users\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
@@ -19,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Game\" />
-    <Folder Include="Services\Interfaces\Users\" />
+    <Folder Include="Services\Game\Items\ViewModels\" />
+    <Folder Include="Services\Game\Players\ViewModels\" />
+    <Folder Include="Services\Game\Spells\ViewModels\" />
   </ItemGroup>
   
 </Project>

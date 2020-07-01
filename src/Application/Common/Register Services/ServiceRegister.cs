@@ -3,8 +3,12 @@
     using Application.Services.Common.Identity;
     using Application.Services.Game.Enemies;
     using Application.Services.Game.Items;
+    using Application.Services.Game.Players;
+    using Application.Services.Game.Spells;
     using Application.Services.Interfaces.Game.Enemies;
     using Application.Services.Interfaces.Game.Items;
+    using Application.Services.Interfaces.Game.Players;
+    using Application.Services.Interfaces.Game.Spells;
     using Application.Services.Interfaces.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +24,12 @@
 
             services.AddScoped<IItemCommands, ItemCommands>();
             services.AddScoped<IItemQueries, ItemQueries>();
+
+            services.AddScoped<IPlayerCommands, PlayerCommands>();
+            services.AddScoped<IPlayerQueries, PlayerQueries>();
+
+            services.AddScoped<ISpellCommands, SpellCommands>();
+            services.AddScoped<ISpellQueries, SpellQueries>();
         }
     }
 }

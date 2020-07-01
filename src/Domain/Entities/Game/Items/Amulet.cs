@@ -15,10 +15,6 @@
 
         public string Name { get; set; }
 
-        public int BuyPrice { get; set; }
-
-        public int SellPrice { get; set; }
-
         public double HealthIncrease { get; set; }
 
         public double ManaIncrease { get; set; }
@@ -38,6 +34,10 @@
         public double BuffAmount { get; set; }
 
         public double BuffDuration { get; set; }
+
+        public int BuyPrice { get; set; }
+
+        public int SellPrice { get; set; }
 
         public double Cooldown { get; set; }
 
