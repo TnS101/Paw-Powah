@@ -6,11 +6,7 @@
 
     public class VolatileContext : DbContext, IVolatileContext
     {
-        public VolatileContext()
-        {
-        }
-
-        public VolatileContext(DbContextOptions options)
+        public VolatileContext(DbContextOptions<VolatileContext> options)
             : base(options)
         {
         }

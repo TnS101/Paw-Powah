@@ -3,6 +3,23 @@
 }
 
     <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-url="Home/AddCD" data-ajax-complete="AddCD">
+            <input type="number" name="count" value="" />
+            <input type="submit" name="name" value="Add" />
+        </form>
+        <form method="post" asp-controller="Home" asp-action="AddCD">
+            <input type="number" name="count" value="" />
+            <input type="submit" name="name" value="Add" />
+        </form>
+
+        <div id="result">
+
+        </div>
     </div>
+    <script>
+        AddCD = () =>
+        {
+            var count = document.querySelector('form').children[0].value;
+            $('#result').append($('<p>').text(`${count} cooldowns added.`));
+        }
+    </script>

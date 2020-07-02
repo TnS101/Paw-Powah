@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
-namespace Persistence.Migrations.Volatile
+namespace Persistence.Migrations
 {
     [DbContext(typeof(VolatileContext))]
-    [Migration("20200629181619_vol-init")]
-    partial class volinit
+    [Migration("20200702075102_volatileinit2")]
+    partial class volatileinit2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace Persistence.Migrations.Volatile
                     b.Property<DateTime>("EndsOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SpellId")
+                    b.Property<int>("SpellId")
                         .HasColumnType("int");
 
                     b.Property<long>("UnitId")
@@ -40,6 +40,30 @@ namespace Persistence.Migrations.Volatile
                     b.HasKey("Id");
 
                     b.ToTable("Cooldowns");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Common.Duration", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("EffectPower")
+                        .HasColumnType("float");
+
+                    b.Property<string>("EffectType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndsOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UnitId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Durations");
                 });
 #pragma warning restore 612, 618
         }

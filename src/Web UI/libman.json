@@ -7,7 +7,7 @@
       "destination": "wwwroot/lib/jquery/"
     },
     {
-      "library": "angular@10.0.1",
+      "library": "angular@10.0.0-rc.2",
       "destination": "wwwroot/lib/angular/"
     },
     {

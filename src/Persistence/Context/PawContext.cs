@@ -11,8 +11,7 @@
 
     public class PawContext : IdentityDbContext<AppUser, ApplicationRole, string>, IPawContext
     {
-
-        public PawContext(DbContextOptions options)
+        public PawContext(DbContextOptions<PawContext> options)
             : base(options)
         {
         }
@@ -49,15 +48,13 @@
 
         public DbSet<GeneratedEnemy> GeneratedEnemies { get; set; }
 
-        public void BulkSave() => this.BulkSaveChanges();
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer(new ConnectionString().DefaultPath);
+                    .UseSqlServer(new ConnectionString().PawPath);
             }
         }
 

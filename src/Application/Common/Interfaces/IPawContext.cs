@@ -45,8 +45,6 @@
 
         DbSet<GeneratedEnemy> GeneratedEnemies { get; set; }
 
-        void BulkSave();
-
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
