@@ -4,8 +4,8 @@
 
     public class ConnectionString : IConnectionString
     {
-        public string DefaultPath => @"Server=.;Database=PawPowah;Integrated Security=True;MultipleActiveResultSets=true;";
-
-        public string VolatilePath => @"Server=.;Database=PawPowah-Volatile;Integrated Security=True;MultipleActiveResultSets=true;";
+        public string PawPath => "Server=.;Database=PawPowah;Trusted_Connection=True;MultipleActiveResultSets=true;";
+       
+        public string VolatilePath => "Server=.;Database=PawPowah-Volatile;Trusted_Connection=True;MultipleActiveResultSets=true;";
     }
 }

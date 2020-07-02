@@ -9,11 +9,11 @@
     {
         public static IServiceCollection AddPersistence(IServiceCollection services, IConnectionString connection)
         {
-            services.AddDbContextPool<PawContext>(options => options.UseSqlServer(connection.DefaultPath));
-            services.AddDbContextPool<VolatileContext>(options => options.UseSqlServer(connection.VolatilePath));
-
-            services.AddScoped(provider => provider.GetService<IPawContext>());
+            services.AddDbContext<PawContext>(options => options.UseSqlServer(connection.PawPath));
+            services.AddDbContext<VolatileContext>(options => options.UseSqlServer(connection.VolatilePath));
+            
             services.AddScoped(provider => provider.GetService<IVolatileContext>());
+            services.AddScoped(provider => provider.GetService<IPawContext>());
 
             return services;
         }

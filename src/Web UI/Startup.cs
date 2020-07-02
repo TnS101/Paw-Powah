@@ -17,6 +17,7 @@ namespace Paw_Powah
     using Domain.Identity;
     using Application.Common.Register_Services;
     using Microsoft.EntityFrameworkCore;
+    using Persistence;
 
     public class Startup
     {
@@ -43,16 +44,13 @@ namespace Paw_Powah
             services.AddSingleton(mapper);
 
             // Database
-            services.AddDbContextPool<PawContext>(options =>
+            services.AddDbContext<PawContext>(options =>
                 options.UseSqlServer(
-                    this.Configuration.GetConnectionString("DefaultConnection")));
+                    this.Configuration.GetConnectionString("PawContextConnection"))).AddScoped<IPawContext, PawContext>();
 
-            services.AddDbContextPool<VolatileContext>(options =>
+            services.AddDbContext<VolatileContext>(options =>
                 options.UseSqlServer(
-                    this.Configuration.GetConnectionString("VolatileContextConnection")));
-
-            services.AddScoped<IPawContext, PawContext>();
-            services.AddScoped<IVolatileContext, VolatileContext>();
+                    this.Configuration.GetConnectionString("VolatileContextConnection"))).AddScoped<IVolatileContext, VolatileContext>();
 
             // Identity
             services.AddDefaultIdentity<AppUser>(options =>

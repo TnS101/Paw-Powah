@@ -4,36 +4,25 @@
     using Application.Game.Stats;
     using Domain.Entities.Common;
     using Microsoft.EntityFrameworkCore;
+    using Quartz;
     using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class VolatileHandler
+    public class VolatileHandler : IJob
     {
-        public VolatileHandler()
+        private readonly IVolatileContext volatileContext;
+        private readonly IPawContext context;
+        public VolatileHandler(IVolatileContext volatileContext, IPawContext context)
         {
+            this.volatileContext = volatileContext;
+            this.context = context;
         }
 
         public async Task Clear(IVolatileContext volatileContext, IPawContext context)
         {
-            var cooldowns = volatileContext.Cooldowns.Where(c => c.EndsOn >= DateTime.UtcNow);
-            var durations = volatileContext.Durations.Where(d => d.EndsOn >= DateTime.UtcNow);
-
-            if (cooldowns.Count() == 0 && durations.Count() == 0)
-            {
-                return;
-            }
-
-            foreach (var duration in durations)
-            {
-                await this.BuffHandler(duration.UnitId, duration.EffectType, duration.EffectPower, "-", context);
-            }
-
-            volatileContext.Durations.RemoveRange(durations);
-            volatileContext.Cooldowns.RemoveRange(cooldowns);
-
-            await volatileContext.SaveChangesAsync(CancellationToken.None);
+            
         }
 
         public async Task SetCD(long unitId, double cooldownDuration, int spellId, IVolatileContext volatileContext)
@@ -77,6 +66,27 @@
             var unit = await context.Players.FindAsync(unitId);
 
             new CustomStatProcessor().Execute(unit, buffType, buffPower, operation);
+        }
+
+        public async Task Execute(IJobExecutionContext context)
+        {
+            var cooldowns = this.volatileContext.Cooldowns.Where(c => c.EndsOn >= DateTime.UtcNow);
+            var durations = this.volatileContext.Durations.Where(d => d.EndsOn >= DateTime.UtcNow);
+
+            if (cooldowns.Count() == 0 && durations.Count() == 0)
+            {
+                return;
+            }
+
+            foreach (var duration in durations)
+            {
+                await this.BuffHandler(duration.UnitId, duration.EffectType, duration.EffectPower, "-", this.context);
+            }
+
+            this.volatileContext.Durations.RemoveRange(durations);
+            this.volatileContext.Cooldowns.RemoveRange(cooldowns);
+
+            await this.volatileContext.SaveChangesAsync(CancellationToken.None);
         }
     }
 }

@@ -9,7 +9,7 @@
 
         public Player Player { get; set; }
 
-        public int SpellId { get; set; }
+        public int? SpellId { get; set; }
 
         public Spell Spell { get; set; }
     }
