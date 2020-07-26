@@ -3,9 +3,9 @@
     using Domain.Entities.Game.Units;
     using System.Collections.Generic;
 
-    public class Class
+    public class BattleClass
     {
-        public Class()
+        public BattleClass()
         {
             this.Spells = new HashSet<Spell>();
             this.Players = new HashSet<Player>();

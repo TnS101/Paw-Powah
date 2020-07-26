@@ -10,8 +10,8 @@ using Persistence.Context;
 namespace Persistence.Migrations.Paw
 {
     [DbContext(typeof(PawContext))]
-    [Migration("20200702080837_init")]
-    partial class init
+    [Migration("20200702132613_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Persistence.Migrations.Paw
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Domain.Entities.Game.Combat.Class", b =>
+            modelBuilder.Entity("Domain.Entities.Game.Combat.BattleClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -922,7 +922,7 @@ namespace Persistence.Migrations.Paw
 
             modelBuilder.Entity("Domain.Entities.Game.Combat.Spell", b =>
                 {
-                    b.HasOne("Domain.Entities.Game.Combat.Class", "Class")
+                    b.HasOne("Domain.Entities.Game.Combat.BattleClass", "Class")
                         .WithMany("Spells")
                         .HasForeignKey("ClassId");
 
@@ -1023,7 +1023,7 @@ namespace Persistence.Migrations.Paw
 
             modelBuilder.Entity("Domain.Entities.Game.Units.Player", b =>
                 {
-                    b.HasOne("Domain.Entities.Game.Combat.Class", "Class")
+                    b.HasOne("Domain.Entities.Game.Combat.BattleClass", "Class")
                         .WithMany("Players")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)

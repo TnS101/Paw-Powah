@@ -38,7 +38,7 @@
 
         public DbSet<GeneratedEnemySpells> GeneratedEnemiesSpells { get; set; }
 
-        public DbSet<Class> Classes { get; set; }
+        public DbSet<BattleClass> Classes { get; set; }
 
         public DbSet<Kind> Kinds { get; set; }
 
@@ -51,11 +51,6 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder
-                    .UseSqlServer(new ConnectionString().PawPath);
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

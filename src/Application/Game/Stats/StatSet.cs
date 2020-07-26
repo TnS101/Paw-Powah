@@ -5,7 +5,7 @@
 
     public class StatSet
     {
-        public Player PlayerStatSet(Class fightingClass, Player player, Kind kind)
+        public Player PlayerStatSet(BattleClass fightingClass, Player player, Kind kind)
         {
             player.ClassId = fightingClass.Id;
             player.MaxHP = fightingClass.MaxHP;

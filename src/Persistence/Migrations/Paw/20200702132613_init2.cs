@@ -2,7 +2,7 @@
 
 namespace Persistence.Migrations.Paw
 {
-    public partial class init : Migration
+    public partial class init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

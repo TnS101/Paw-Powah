@@ -19,7 +19,7 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Domain.Entities.Game.Combat.Class", b =>
+            modelBuilder.Entity("Domain.Entities.Game.Combat.BattleClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -920,7 +920,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Game.Combat.Spell", b =>
                 {
-                    b.HasOne("Domain.Entities.Game.Combat.Class", "Class")
+                    b.HasOne("Domain.Entities.Game.Combat.BattleClass", "Class")
                         .WithMany("Spells")
                         .HasForeignKey("ClassId");
 
@@ -1021,7 +1021,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Game.Units.Player", b =>
                 {
-                    b.HasOne("Domain.Entities.Game.Combat.Class", "Class")
+                    b.HasOne("Domain.Entities.Game.Combat.BattleClass", "Class")
                         .WithMany("Players")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)

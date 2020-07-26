@@ -4,9 +4,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class ClassConfiguration : IEntityTypeConfiguration<Class>
+    public class ClassConfiguration : IEntityTypeConfiguration<BattleClass>
     {
-        public void Configure(EntityTypeBuilder<Class> builder)
+        public void Configure(EntityTypeBuilder<BattleClass> builder)
         {
             builder.HasKey(e => e.Id);
 

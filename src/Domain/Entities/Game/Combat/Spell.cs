@@ -16,7 +16,7 @@
 
         public int? ClassId { get; set; }
 
-        public Class Class { get; set; }
+        public BattleClass Class { get; set; }
 
         public int? EnemyId { get; set; }
 

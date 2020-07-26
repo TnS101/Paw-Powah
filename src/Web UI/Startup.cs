@@ -46,11 +46,11 @@ namespace Paw_Powah
             // Database
             services.AddDbContext<PawContext>(options =>
                 options.UseSqlServer(
-                    this.Configuration.GetConnectionString("PawContextConnection"))).AddScoped<IPawContext, PawContext>();
+                    this.Configuration["ConnectionStrings:PawContextConnection"])).AddScoped<IPawContext, PawContext>();
 
             services.AddDbContext<VolatileContext>(options =>
                 options.UseSqlServer(
-                    this.Configuration.GetConnectionString("VolatileContextConnection"))).AddScoped<IVolatileContext, VolatileContext>();
+                    this.Configuration["ConnectionStrings:VolatileContextConnection"])).AddScoped<IVolatileContext, VolatileContext>();
 
             // Identity
             services.AddDefaultIdentity<AppUser>(options =>
