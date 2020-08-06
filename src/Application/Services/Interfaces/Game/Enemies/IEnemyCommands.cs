@@ -4,7 +4,7 @@
     using Application.Services.Game.Enemies.Models;
     using System.Threading.Tasks;
 
-    public interface IEnemyCommands
+    public interface IEnemyCommands : ICommand<EnemyInputModel>
     {
         Task Generate(IPawContext context, int refLevel);
 
@@ -13,11 +13,5 @@
         Task Attack(long attackerId, long targetId);
 
         Task SpellCast(long casterId, long targetId);
-
-        Task Create(EnemyInputModel input);
-
-        Task Delete(long id);
-
-        Task Update(long id, EnemyInputModel input);
     }
 }

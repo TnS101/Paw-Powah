@@ -18,14 +18,14 @@
         {
         }
 
-        public async Task<IEnumerable<EnemyMinViewModel>> GetAllEnemies()
+        public async Task<IEnumerable<Enemy>> GetAll()
         {
             return await this.Context.Enemies.ProjectTo<EnemyMinViewModel>(this.Mapper.ConfigurationProvider).ToArrayAsync();
         }
 
-        public async Task<Enemy> GetEnemyInfo(int id)
+        public async Task<Enemy> GetInfo(long id)
         {
-            return await this.Context.Enemies.FindAsync(id);
+            return await this.Context.Enemies.FindAsync((int)id);
         }
 
         public async Task<GeneratedEnemyViewModel> GetGeneratedEnemy(long id)

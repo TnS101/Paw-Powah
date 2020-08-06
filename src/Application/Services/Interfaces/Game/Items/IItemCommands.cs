@@ -1,12 +1,8 @@
 ﻿namespace Application.Services.Interfaces.Game.Items
 {
     using Application.Services.Game.Items.Models;
-    using System.Threading.Tasks;
 
-    public interface IItemCommands
+    public interface IItemCommands : ICommand<ItemInputModel>
     {
-        Task Create(ItemInputModel input);
-
-        Task Update(ItemInputModel input, int id);
     }
 }

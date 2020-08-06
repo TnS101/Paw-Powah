@@ -26,8 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Game\Items\ViewModels\" />
-    <Folder Include="Services\Game\Players\ViewModels\" />
     <Folder Include="Services\Game\Spells\ViewModels\" />
   </ItemGroup>
   
