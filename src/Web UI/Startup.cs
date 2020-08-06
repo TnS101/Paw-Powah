@@ -17,7 +17,6 @@ namespace Paw_Powah
     using Domain.Identity;
     using Application.Common.Register_Services;
     using Microsoft.EntityFrameworkCore;
-    using Persistence;
 
     public class Startup
     {

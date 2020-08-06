@@ -4,6 +4,7 @@
     using Application.Common.Service_Helpers;
     using Application.Game.Combat;
     using Application.Game.Stats;
+    using Application.Services.Game.Enemies.Models;
     using Application.Services.Interfaces.Game.Enemies;
     using Domain.Entities.Game.ManyToMany;
     using Domain.Entities.Game.Units;
@@ -30,25 +31,24 @@
             await this.Context.SaveChangesAsync(CancellationToken.None);
         }
 
-        public async Task Create(string name, double maxHP, double maxMana, double attackPower, double magicPower, double healthRegen, double manaRegen,
-            double critChance, double attackSpeed, double movementSpeed, double tenacity, double armor, double resistance, string imagePath)
+        public async Task Create(EnemyInputModel input)
         {
             this.Context.Enemies.Add(new Enemy
             {
-                Name = name,
-                MaxHP = maxHP,
-                MaxMana = maxMana,
-                AttackPower = attackPower,
-                MagicPower = magicPower,
-                HealthRegen = healthRegen,
-                ManaRegen = manaRegen,
-                CritChance = critChance,
-                AttackSpeed = attackSpeed,
-                MovementSpeed = movementSpeed,
-                Tenacity = tenacity,
-                Armor = armor,
-                Resistance = resistance,
-                ImagePath = imagePath,
+                Name = input.Name,
+                MaxHP = input.MaxHP,
+                MaxMana = input.MaxMana,
+                AttackPower = input.AttackPower,
+                MagicPower = input.MagicPower,
+                HealthRegen = input.HealthRegen,
+                ManaRegen = input.ManaRegen,
+                CritChance = input.CritChance,
+                AttackSpeed = input.AttackSpeed,
+                MovementSpeed = input.MovementSpeed,
+                Tenacity = input.Tenacity,
+                Armor = input.Armor,
+                Resistance = input.Resistance,
+                ImagePath = input.ImagePath,
             });
 
             await this.Context.SaveChangesAsync(CancellationToken.None);
@@ -103,59 +103,58 @@
             var player = await this.Context.Players.FindAsync(id);
         }
 
-        public async Task Update(long id, string name, double maxHP, double maxMana, double attackPower, double magicPower, double healthRegen,
-            double manaRegen, double critChance, double attackSpeed, double movementSpeed, double tenacity, double armor, double resistance, string imagePath)
+        public async Task Update(long id, EnemyInputModel input)
         {
             var enemy = await this.Context.Enemies.FindAsync(id);
 
-            if (!string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrWhiteSpace(input.Name))
             {
-                enemy.Name = name;
+                enemy.Name = input.Name;
             }
 
-            if (maxHP > 0)
+            if (input.MaxHP > 0)
             {
-                enemy.MaxHP = maxHP;
+                enemy.MaxHP = input.MaxHP;
             }
 
-            if (maxMana > 0)
+            if (input.MaxMana > 0)
             {
-                enemy.MaxMana = maxMana;
+                enemy.MaxMana = input.MaxMana;
             }
 
-            if (healthRegen > 0)
+            if (input.HealthRegen > 0)
             {
-                enemy.HealthRegen = healthRegen;
+                enemy.HealthRegen = input.HealthRegen;
             }
 
-            if (manaRegen > 0)
+            if (input.ManaRegen > 0)
             {
-                enemy.ManaRegen = manaRegen;
+                enemy.ManaRegen = input.ManaRegen;
             }
 
-            if (attackPower > 0)
+            if (input.AttackPower > 0)
             {
-                enemy.AttackPower = attackPower;
+                enemy.AttackPower = input.AttackPower;
             }
 
-            if (magicPower > 0)
+            if (input.MagicPower > 0)
             {
-                enemy.MagicPower = magicPower;
+                enemy.MagicPower = input.MagicPower;
             }
 
-            if (armor > 0)
+            if (input.Armor > 0)
             {
-                enemy.Armor = armor;
+                enemy.Armor = input.Armor;
             }
 
-            if (resistance > 0)
+            if (input.Resistance > 0)
             {
-                enemy.Resistance = resistance;
+                enemy.Resistance = input.Resistance;
             }
 
-            if (critChance > 0)
+            if (input.CritChance > 0)
             {
-                enemy.CritChance = critChance;
+                enemy.CritChance = input.CritChance;
             }
 
             this.Context.Enemies.Update(enemy);

@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Game.Enemies.ViewModels
+﻿namespace Application.Services.Game.Enemies.Models
 {
     public class EnemyMinViewModel
     {

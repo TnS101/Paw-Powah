@@ -1,6 +1,7 @@
 ﻿namespace Application.Services.Interfaces.Game.Enemies
 {
     using Application.Common.Interfaces;
+    using Application.Services.Game.Enemies.Models;
     using System.Threading.Tasks;
 
     public interface IEnemyCommands
@@ -13,12 +14,10 @@
 
         Task SpellCast(long casterId, long targetId);
 
-        Task Create(string name, double maxHP, double maxMana, double attackPower, double magicPower, double healthRegen, double manaRegen, double critChance
-            , double attackSpeed , double movementSpeed, double tenacity, double armor, double resistance, string imagePath);
+        Task Create(EnemyInputModel input);
 
         Task Delete(long id);
 
-        Task Update(long id, string name, double maxHP, double maxMana, double attackPower, double magicPower, double healthRegen, double manaRegen, double critChance
-            , double attackSpeed, double movementSpeed, double tenacity, double armor, double resistance, string imagePath);
+        Task Update(long id, EnemyInputModel input);
     }
 }

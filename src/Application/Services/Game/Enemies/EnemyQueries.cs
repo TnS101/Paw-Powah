@@ -2,7 +2,7 @@
 {
     using Application.Common.Interfaces;
     using Application.Common.Service_Helpers;
-    using Application.Services.Game.Enemies.ViewModels;
+    using Application.Services.Game.Enemies.Models;
     using Application.Services.Interfaces.Game.Enemies;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;

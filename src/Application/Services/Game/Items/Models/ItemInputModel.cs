@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Game.Items.InputModels
+﻿namespace Application.Services.Game.Items.Models
 {
     public class ItemInputModel
     {

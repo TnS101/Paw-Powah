@@ -2,7 +2,7 @@
 {
     using Application.Common.Interfaces;
     using Application.Common.Service_Helpers;
-    using Application.Services.Game.Items.InputModels;
+    using Application.Services.Game.Items.Models;
     using Application.Services.Interfaces.Game.Items;
     using Domain.Entities.Game.Items;
     using System.Threading;

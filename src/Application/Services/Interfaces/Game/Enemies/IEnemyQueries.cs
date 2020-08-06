@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Interfaces.Game.Enemies
 {
-    using Application.Services.Game.Enemies.ViewModels;
+    using Application.Services.Game.Enemies.Models;
     using Domain.Entities.Game.Units;
     using System.Collections.Generic;
     using System.Threading.Tasks;
