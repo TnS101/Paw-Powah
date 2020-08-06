@@ -1,6 +1,8 @@
 ﻿namespace Application.Services.Interfaces.Game.Spells
 {
-    public interface ISpellCommands
+    using Application.Services.Game.Spells.Models;
+
+    public interface ISpellCommands : ICommand<SpellInputModel>
     {
     }
 }

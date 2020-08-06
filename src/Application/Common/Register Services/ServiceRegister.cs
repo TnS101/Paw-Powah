@@ -1,6 +1,5 @@
 ﻿namespace Application.Common.Register_Services
 {
-    using Application.Common.Interfaces;
     using Application.Services.Common.Identity;
     using Application.Services.Game.Enemies;
     using Application.Services.Game.Items;

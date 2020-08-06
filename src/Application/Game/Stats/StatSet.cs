@@ -5,7 +5,7 @@
 
     public class StatSet
     {
-        public Player PlayerStatSet(BattleClass fightingClass, Player player, Kind kind)
+        public Player PlayerStatSet(BattleClass fightingClass, Player player, string kindStatType, double kindStatAmount)
         {
             player.ClassId = fightingClass.Id;
             player.MaxHP = fightingClass.MaxHP;
@@ -20,6 +20,8 @@
             player.Resistance = fightingClass.Resistance;
             player.CritChance = fightingClass.CritChance;
             player.ImagePath = fightingClass.ImagePath;
+
+            new StatProcessor().Execute(player, kindStatType, kindStatAmount, "+");
 
             return player;
         }

@@ -37,6 +37,8 @@
 
         public double AttackSpeedIncrease { get;set; }
 
+        public string ImagePath { get; set; }
+
         public ICollection<PlayerWeapons> PlayerWeapons { get; set; }
     }
 }

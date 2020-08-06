@@ -39,6 +39,8 @@
 
         public int SellPrice { get; set; }
 
+        public string ImagePath { get; set; }
+
         public ICollection<PlayerArmors> PlayerArmors { get; set; }
     }
 }

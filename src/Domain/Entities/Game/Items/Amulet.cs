@@ -41,6 +41,8 @@
 
         public double Cooldown { get; set; }
 
+        public string ImagePath { get; set; }
+        
         public ICollection<PlayerAmulets> PlayerAmulets { get; set; }
     }
 }

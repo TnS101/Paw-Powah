@@ -9,5 +9,7 @@
         int BuyPrice { get; set; }
 
         int SellPrice { get; set; }
+
+        string ImagePath { get; set; }
     }
 }

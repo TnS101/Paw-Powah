@@ -20,11 +20,6 @@
             this.context = context;
         }
 
-        public async Task Clear(IVolatileContext volatileContext, IPawContext context)
-        {
-            
-        }
-
         public async Task SetCD(long unitId, double cooldownDuration, int spellId, IVolatileContext volatileContext)
         {
             volatileContext.Cooldowns.Add(new Cooldown
@@ -65,7 +60,7 @@
         {
             var unit = await context.Players.FindAsync(unitId);
 
-            new CustomStatProcessor().Execute(unit, buffType, buffPower, operation);
+            new StatProcessor().Execute(unit, buffType, buffPower, operation);
         }
 
         public async Task Execute(IJobExecutionContext context)

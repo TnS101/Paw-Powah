@@ -25,6 +25,8 @@
 
         public int SellPrice { get; set; }
 
+        public string ImagePath { get; set; }
+
         public ICollection<PlayerConsumeables> PlayerConsumeables { get; set; }
     }
 }

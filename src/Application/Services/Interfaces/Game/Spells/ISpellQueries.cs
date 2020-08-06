@@ -1,6 +1,8 @@
 ﻿namespace Application.Services.Interfaces.Game.Spells
 {
-    public interface ISpellQueries
+    using Domain.Entities.Game.Combat;
+
+    public interface ISpellQueries : IQuery<Spell>
     {
     }
 }

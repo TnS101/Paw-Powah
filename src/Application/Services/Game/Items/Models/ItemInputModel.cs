@@ -41,5 +41,7 @@
         public int Cooldown { get; set; }
 
         public double BuffDuration { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }
