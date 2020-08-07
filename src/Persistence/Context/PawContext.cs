@@ -38,7 +38,7 @@
 
         public DbSet<GeneratedEnemySpells> GeneratedEnemiesSpells { get; set; }
 
-        public DbSet<BattleClass> Classes { get; set; }
+        public DbSet<BattleClass> BattleClasses { get; set; }
 
         public DbSet<Kind> Kinds { get; set; }
 

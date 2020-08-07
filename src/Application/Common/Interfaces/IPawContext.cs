@@ -35,7 +35,7 @@
 
         DbSet<PlayerSpells> PlayersSpells { get; set; }
 
-        DbSet<BattleClass> Classes { get; set; }
+        DbSet<BattleClass> BattleClasses { get; set; }
 
         DbSet<Kind> Kinds { get; set; }
 

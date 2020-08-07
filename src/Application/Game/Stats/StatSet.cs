@@ -5,21 +5,20 @@
 
     public class StatSet
     {
-        public Player PlayerStatSet(BattleClass fightingClass, Player player, string kindStatType, double kindStatAmount)
+        public Player PlayerStatSet(BattleClass battleClass, Player player, string kindStatType, double kindStatAmount)
         {
-            player.ClassId = fightingClass.Id;
-            player.MaxHP = fightingClass.MaxHP;
-            player.CurrentHP = fightingClass.MaxHP;
-            player.HealthRegen = fightingClass.HealthRegen;
-            player.MaxMana = fightingClass.MaxMana;
-            player.CurrentMana = fightingClass.MaxMana;
-            player.ManaRegen = fightingClass.ManaRegen;
-            player.AttackPower = fightingClass.AttackPower;
-            player.MagicPower = fightingClass.MagicPower;
-            player.Armor = fightingClass.Armor;
-            player.Resistance = fightingClass.Resistance;
-            player.CritChance = fightingClass.CritChance;
-            player.ImagePath = fightingClass.ImagePath;
+            player.MaxHP = battleClass.MaxHP;
+            player.CurrentHP = battleClass.MaxHP;
+            player.HealthRegen = battleClass.HealthRegen;
+            player.MaxMana = battleClass.MaxMana;
+            player.CurrentMana = battleClass.MaxMana;
+            player.ManaRegen = battleClass.ManaRegen;
+            player.AttackPower = battleClass.AttackPower;
+            player.MagicPower = battleClass.MagicPower;
+            player.Armor = battleClass.Armor;
+            player.Resistance = battleClass.Resistance;
+            player.CritChance = battleClass.CritChance;
+            player.ImagePath = battleClass.ImagePath;
 
             new StatProcessor().Execute(player, kindStatType, kindStatAmount, "+");
 

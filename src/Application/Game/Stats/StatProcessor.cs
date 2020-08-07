@@ -4,10 +4,6 @@
 
     public class StatProcessor
     {
-        public StatProcessor()
-        {
-        }
-
         public void Execute(IUnit unit, string statType, double power, string mathOperation)
         {
             switch (statType)
