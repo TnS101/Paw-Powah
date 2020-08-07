@@ -32,13 +32,15 @@
 
         public double AttackSpeed { get; set; }
 
-        public string StatType { get; set; }
+        public string StatRegenType { get; set; }
 
-        public double StatAmount { get; set; }
+        public double RegenAmount { get; set; }
 
         public int Charges { get; set; }
 
-        public int Cooldown { get; set; }
+        public double Cooldown { get; set; }
+
+        public string BuffStatType { get; set; }
 
         public double BuffDuration { get; set; }
 

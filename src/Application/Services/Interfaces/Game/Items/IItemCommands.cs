@@ -8,5 +8,11 @@
         Task Delete(string type, int id);
 
         Task Update(string type, int id, ItemInputModel input);
+
+        Task Loot(long playerId, string type, int id, int amount);
+
+        Task Buy(long playerId, string type, int id, int amount);
+
+        Task Sell(long playerId, string type, int id, int amount);
     }
 }
