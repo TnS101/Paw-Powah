@@ -130,8 +130,8 @@
                 {
                     amulet.BuffDuration = input.BuffDuration;
                 }
-                
-                if (input.Cooldown > 0) 
+
+                if (input.Cooldown > 0)
                 {
                     amulet.Cooldown = input.Cooldown;
                 }
@@ -139,16 +139,16 @@
                 this.ItemNullCheck(amulet, input);
                 this.EquipableItemNullCheck(amulet, input);
             }
-            else if (type == "Armor") 
+            else if (type == "Armor")
             {
                 var armor = await this.Context.Armors.FindAsync(id);
 
-                if (input.ArmorValue > 0) 
+                if (input.ArmorValue > 0)
                 {
                     armor.ArmorValue = input.ArmorValue;
                 }
 
-                if (input.ResistanceValue > 0) 
+                if (input.ResistanceValue > 0)
                 {
                     armor.ResistanceValue = input.ResistanceValue;
                 }
@@ -156,7 +156,7 @@
                 this.ItemNullCheck(armor, input);
                 this.EquipableItemNullCheck(armor, input);
             }
-            else if (type == "Weapon") 
+            else if (type == "Weapon")
             {
                 var weapon = await this.Context.Weapons.FindAsync(id);
 
@@ -172,7 +172,8 @@
 
                 this.ItemNullCheck(weapon, input);
                 this.EquipableItemNullCheck(weapon, input);
-            }else 
+            }
+            else
             {
                 var consumeable = await this.Context.Consumeables.FindAsync(id);
 
@@ -191,7 +192,7 @@
 
             await this.Context.SaveChangesAsync(CancellationToken.None);
         }
-        
+
         public async Task Loot(long playerId, string type, int id, int amount)
         {
             var player = await this.Context.Players.FindAsync(playerId);
@@ -219,11 +220,12 @@
                         Amount = amount,
                     });
                 }
-                else 
+                else
                 {
                     inventory.Amount += amount;
                 }
-            }else if (type == "Armor") 
+            }
+            else if (type == "Armor")
             {
                 var inventory = await this.Context.PlayersArmors.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.ArmorId == id);
 
@@ -279,6 +281,92 @@
             }
         }
 
+        public async Task Buy(long playerId, string type, int id, int amount)
+        {
+            var player = await this.Context.Players.FindAsync(playerId);
+            IItem item = await this.GetItem(type, id);
+
+            if (item == null) 
+            {
+                return;
+            }
+
+            await this.Loot(playerId, type, id, amount);
+
+            player.Gold -= item.BuyPrice * amount;
+
+            await this.Context.SaveChangesAsync(CancellationToken.None);
+        }
+
+        public async Task Sell(long playerId, string type, int id, int amount)
+        {
+            var player = await this.Context.Players.FindAsync(playerId);
+            IItem item = await this.GetItem(type, id);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            if (type == "Amulet")
+            {
+                var inventory = await this.Context.PlayersAmulets.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.AmuletId == id);
+
+                if (amount >= inventory.Amount) 
+                {
+                    this.Context.PlayersAmulets.Remove(inventory);
+                    amount = inventory.Amount;
+                }
+                else
+                {
+                    inventory.Amount -= amount;
+                }
+            }
+            else if (type == "Armor")
+            {
+                var inventory = await this.Context.PlayersArmors.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.ArmorId == id);
+
+                if (amount >= inventory.Amount) 
+                {
+                    this.Context.PlayersArmors.Remove(inventory);
+                }
+                else
+                {
+                    inventory.Amount -= amount;
+                }
+            }
+            else if (type == "Weapon")
+            {
+                var inventory = await this.Context.PlayersWeapons.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.WeaponId == id);
+
+                if (amount >= inventory.Amount)
+                {
+                    this.Context.PlayersWeapons.Remove(inventory);
+                }
+                else
+                {
+                    inventory.Amount -= amount;
+                }
+            }
+            else
+            {
+                var inventory = await this.Context.PlayersConsumeables.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.ConsumeableId == id);
+
+                if (amount >= inventory.Amount)
+                {
+                    this.Context.PlayersConsumeables.Remove(inventory);
+                }
+                else
+                {
+                    inventory.Amount -= amount;
+                }
+            }
+
+            player.Gold += item.SellPrice * amount;
+
+            await this.Context.SaveChangesAsync(CancellationToken.None);
+        }
+
         private void ItemNullCheck(IItem item, ItemInputModel input)
         {
             if (!string.IsNullOrWhiteSpace(input.Name))
@@ -300,6 +388,18 @@
             {
                 item.SellPrice = input.SellPrice;
             }
+        }
+
+        private async Task<IItem> GetItem(string type, int id) 
+        {
+            return type switch
+            {
+                "Amulet" => await this.Context.Amulets.FindAsync(id),
+                "Armor" => await this.Context.Armors.FindAsync(id),
+                "Weapon" => await this.Context.Weapons.FindAsync(id),
+                "Consumeable" => await this.Context.Consumeables.FindAsync(id),
+                _ => null,
+            };
         }
 
         private void EquipableItemNullCheck(IEquipableItem equipableItem, ItemInputModel input)
