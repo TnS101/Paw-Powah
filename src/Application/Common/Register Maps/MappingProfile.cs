@@ -32,10 +32,10 @@
             this.CreateMap<Spell, SpellMinViewModel>();
 
 
-            this.CreateMap<Amulet, ItemMinViewModel>();
-            this.CreateMap<Armor, ItemMinViewModel>();
-            this.CreateMap<Weapon, ItemMinViewModel>();
-            this.CreateMap<Consumeable, ItemMinViewModel>();
+            this.CreateMap<Amulet, ItemMinViewModel>().ForMember(i => i.Count, opt => opt.Ignore());
+            this.CreateMap<Armor, ItemMinViewModel>().ForMember(i => i.Count, opt => opt.Ignore());
+            this.CreateMap<Weapon, ItemMinViewModel>().ForMember(i => i.Count, opt => opt.Ignore());
+            this.CreateMap<Consumeable, ItemMinViewModel>().ForMember(i => i.Count, opt => opt.Ignore());
         }
     }
 }

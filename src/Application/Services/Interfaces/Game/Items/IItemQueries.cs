@@ -6,10 +6,14 @@
 
     public interface IItemQueries
     {
-        Task<IEnumerable<ItemMinViewModel>> GetAll();
+        Task<IEnumerable<ItemMinViewModel>> GetInventory(long playerId);
 
-        Task<EquipableFullViewModel> GetEquipable(int id);
+        Task<EquipableFullViewModel> GetEquipable(int id, string type);
+
+        Task<IEnumerable<EquipableFullViewModel>> GetEquipment(long playerId);
 
         Task<ConsumeableFullViewModel> GetConsumeable(int id);
+
+        Task<IEnumerable<ItemMinViewModel>> GetAllItems(string type);
     }
 }

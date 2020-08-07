@@ -11,5 +11,7 @@
         public int SellPrice { get; set; }
 
         public string ImagePath { get; set; }
+
+        public int Count { get; set; }
     }
 }
