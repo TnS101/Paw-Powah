@@ -5,7 +5,9 @@
     using Application.Services.Game.Items.Models;
     using Application.Services.Interfaces.Game.Items;
     using Domain.Entities.Game.Items;
+    using Domain.Entities.Game.ManyToMany;
     using Domain.Interfaces;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -48,8 +50,8 @@
                     CritChanceIncrease = input.CritChanceIncrease,
                     MovementSpeedIncrease = input.MovementSpeedIncrease,
                     AttackSpeedIncrease = input.AttackSpeedIncrease,
-                    BuffStatType = input.StatType,
-                    BuffAmount = input.StatAmount,
+                    BuffStatType = input.StatRegenType,
+                    BuffAmount = input.RegenAmount,
                     BuffDuration = input.BuffDuration,
                     Cooldown = input.Cooldown,
                     BuyPrice = input.BuyPrice,
@@ -62,8 +64,8 @@
                 {
                     Name = input.Name,
                     Charges = input.Charges,
-                    StatRegenType = input.StatType,
-                    RegenAmount = input.StatAmount,
+                    StatRegenType = input.StatRegenType,
+                    RegenAmount = input.RegenAmount,
                     BuyPrice = input.BuyPrice,
                     SellPrice = input.SellPrice,
                 });
@@ -115,33 +117,166 @@
 
         public async Task Update(string type, int id, ItemInputModel input)
         {
-            IItem item;
-
             if (type == "Amulet")
             {
-                item = await this.Context.Amulets.FindAsync(id);
+                var amulet = await this.Context.Amulets.FindAsync(id);
 
-                this.EquipableItemNullCheck((IEquipableItem)item, input);
+                if (!string.IsNullOrWhiteSpace(input.BuffStatType))
+                {
+                    amulet.BuffStatType = input.BuffStatType;
+                }
+
+                if (input.BuffDuration > 0)
+                {
+                    amulet.BuffDuration = input.BuffDuration;
+                }
+                
+                if (input.Cooldown > 0) 
+                {
+                    amulet.Cooldown = input.Cooldown;
+                }
+
+                this.ItemNullCheck(amulet, input);
+                this.EquipableItemNullCheck(amulet, input);
             }
             else if (type == "Armor") 
             {
-                item = await this.Context.Armors.FindAsync(id);
+                var armor = await this.Context.Armors.FindAsync(id);
 
-                this.EquipableItemNullCheck((IEquipableItem)item, input);
+                if (input.ArmorValue > 0) 
+                {
+                    armor.ArmorValue = input.ArmorValue;
+                }
+
+                if (input.ResistanceValue > 0) 
+                {
+                    armor.ResistanceValue = input.ResistanceValue;
+                }
+
+                this.ItemNullCheck(armor, input);
+                this.EquipableItemNullCheck(armor, input);
             }
             else if (type == "Weapon") 
             {
-                item = await this.Context.Weapons.FindAsync(id);
+                var weapon = await this.Context.Weapons.FindAsync(id);
 
-                this.EquipableItemNullCheck((IEquipableItem)item, input);
+                if (input.AttackSpeed > 0)
+                {
+                    weapon.AttackSpeed = input.AttackSpeed;
+                }
+
+                if (input.Damage > 0)
+                {
+                    weapon.Damage = input.Damage;
+                }
+
+                this.ItemNullCheck(weapon, input);
+                this.EquipableItemNullCheck(weapon, input);
             }else 
             {
-                item = await this.Context.Amulets.FindAsync(id);
+                var consumeable = await this.Context.Consumeables.FindAsync(id);
+
+                if (!string.IsNullOrWhiteSpace(input.StatRegenType))
+                {
+                    consumeable.StatRegenType = input.StatRegenType;
+                }
+
+                if (input.RegenAmount > 0)
+                {
+                    consumeable.RegenAmount = input.RegenAmount;
+                }
+
+                this.ItemNullCheck(consumeable, input);
             }
 
-            this.ItemNullCheck(item, input);
-
             await this.Context.SaveChangesAsync(CancellationToken.None);
+        }
+        
+        public async Task Loot(long playerId, string type, int id, int amount)
+        {
+            var player = await this.Context.Players.FindAsync(playerId);
+
+            if (amount > player.InventoryCapacity)
+            {
+                amount = player.InventoryCapacity;
+                player.InventoryCapacity = 0;
+            }
+            else
+            {
+                player.InventoryCapacity -= amount;
+            }
+
+            if (type == "Amulet")
+            {
+                var inventory = await this.Context.PlayersAmulets.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.AmuletId == id);
+
+                if (inventory == null)
+                {
+                    this.Context.PlayersAmulets.Add(new PlayerAmulets
+                    {
+                        PlayerId = player.Id,
+                        AmuletId = id,
+                        Amount = amount,
+                    });
+                }
+                else 
+                {
+                    inventory.Amount += amount;
+                }
+            }else if (type == "Armor") 
+            {
+                var inventory = await this.Context.PlayersArmors.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.ArmorId == id);
+
+                if (inventory == null)
+                {
+                    this.Context.PlayersArmors.Add(new PlayerArmors
+                    {
+                        PlayerId = player.Id,
+                        ArmorId = id,
+                        Amount = amount,
+                    });
+                }
+                else
+                {
+                    inventory.Amount += amount;
+                }
+            }
+            else if (type == "Weapon")
+            {
+                var inventory = await this.Context.PlayersWeapons.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.WeaponId == id);
+
+                if (inventory == null)
+                {
+                    this.Context.PlayersWeapons.Add(new PlayerWeapons
+                    {
+                        PlayerId = player.Id,
+                        WeaponId = id,
+                        Amount = amount,
+                    });
+                }
+                else
+                {
+                    inventory.Amount += amount;
+                }
+            }
+            else
+            {
+                var inventory = await this.Context.PlayersConsumeables.FirstOrDefaultAsync(i => i.PlayerId == player.Id && i.ConsumeableId == id);
+
+                if (inventory == null)
+                {
+                    this.Context.PlayersConsumeables.Add(new PlayerConsumeables
+                    {
+                        PlayerId = player.Id,
+                        ConsumeableId = id,
+                        Amount = amount,
+                    });
+                }
+                else
+                {
+                    inventory.Amount += amount;
+                }
+            }
         }
 
         private void ItemNullCheck(IItem item, ItemInputModel input)

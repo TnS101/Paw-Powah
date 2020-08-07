@@ -24,9 +24,5 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Game\Spells\ViewModels\" />
-  </ItemGroup>
   
 </Project>
