@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IQuery<T> where T : class
+    public interface IQuery<Full, Min> where Full : class where Min : class
     {
-        Task<T> GetInfo(long id);
+        Task<Full> GetInfo(long id);
 
-        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<Min>> GetAll();
     }
 }

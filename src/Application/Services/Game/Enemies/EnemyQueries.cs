@@ -6,7 +6,6 @@
     using Application.Services.Interfaces.Game.Enemies;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Domain.Entities.Game.Units;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -18,14 +17,14 @@
         {
         }
 
-        public async Task<IEnumerable<Enemy>> GetAll()
+        public async Task<IEnumerable<EnemyMinViewModel>> GetAll()
         {
             return await this.Context.Enemies.ProjectTo<EnemyMinViewModel>(this.Mapper.ConfigurationProvider).ToArrayAsync();
         }
 
-        public async Task<Enemy> GetInfo(long id)
+        public async Task<EnemyFullViewModel> GetInfo(long id)
         {
-            return await this.Context.Enemies.FindAsync((int)id);
+            return this.Mapper.Map<EnemyFullViewModel>(await this.Context.Enemies.FindAsync((int)id));
         }
 
         public async Task<GeneratedEnemyViewModel> GetGeneratedEnemy(long id)

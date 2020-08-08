@@ -19,7 +19,7 @@
             this.CreateMap<Enemy, EnemyMinViewModel>();
             this.CreateMap<GeneratedEnemy, GeneratedEnemyViewModel>();
 
-            this.CreateMap<Player, PlayerPanelViewModel>().ForMember(p => p.KindName, opt => opt.Ignore()).ForMember(p => p.ClassName, opt => opt.Ignore());
+            this.CreateMap<Player, PlayerFullViewModel>().ForMember(p => p.KindName, opt => opt.Ignore()).ForMember(p => p.ClassName, opt => opt.Ignore());
             this.CreateMap<Player, PlayerBattleViewModel>().ForMember(p => p.KindName, opt => opt.Ignore()).ForMember(p => p.ClassName, opt => opt.Ignore());
             this.CreateMap<Player, PlayerMinViewModel>();
 

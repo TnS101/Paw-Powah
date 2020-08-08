@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Game.Players.Models
 {
-    public class PlayerPanelViewModel
+    public class PlayerFullViewModel
     {
         public long Id { get; set; }
 

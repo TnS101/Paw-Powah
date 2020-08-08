@@ -1,8 +1,6 @@
 ﻿namespace Application.Services.Game.Enemies.Models
 {
-    using Domain.Entities.Game.Units;
-
-    public class EnemyMinViewModel : Enemy
+    public class EnemyMinViewModel
     {
         public int Id { get; set; }
 
