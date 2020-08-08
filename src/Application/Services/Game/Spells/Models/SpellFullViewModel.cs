@@ -1,8 +1,6 @@
 ﻿namespace Application.Services.Game.Spells.Models
 {
-    using Domain.Entities.Game.Combat;
-
-    public class SpellFullViewModel : Spell
+    public class SpellFullViewModel
     {
         public int Id { get; set; }
 

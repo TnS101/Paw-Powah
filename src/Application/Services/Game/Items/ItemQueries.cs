@@ -11,7 +11,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class ItemQueries : MapService, IItemQueries
+    public class ItemQueries : MapService<EquipableFullViewModel, ItemMinViewModel>, IItemQueries
     {
         public ItemQueries(IMapper mapper, IPawContext context)
             :base(mapper, context)
@@ -64,9 +64,9 @@
         {
             return type switch
             {
-                "Amulet" => this.Mapper.Map<EquipableFullViewModel>(await this.Context.Amulets.FindAsync(id)),
-                "Armor" => this.Mapper.Map<EquipableFullViewModel>(await this.Context.Armors.FindAsync(id)),
-                "Weapon" => this.Mapper.Map<EquipableFullViewModel>(await this.Context.Weapons.FindAsync(id)),
+                "Amulet" => this.MapInfo(await this.Context.Amulets.FindAsync(id)),
+                "Armor" => this.MapInfo(await this.Context.Armors.FindAsync(id)),
+                "Weapon" => this.MapInfo(await this.Context.Weapons.FindAsync(id)),
                 _ => null,
             };
         }
@@ -75,8 +75,8 @@
         {
             var result = new HashSet<EquipableFullViewModel>
             {
-                this.Mapper.Map<EquipableFullViewModel>(this.Context.PlayersAmulets.FirstOrDefault(p => p.PlayerId == playerId).Amulet),
-                this.Mapper.Map<EquipableFullViewModel>(this.Context.PlayersWeapons.FirstOrDefault(p => p.PlayerId == playerId).Weapon)
+                this.MapInfo(this.Context.PlayersAmulets.FirstOrDefault(p => p.PlayerId == playerId).Amulet),
+                this.MapInfo(this.Context.PlayersWeapons.FirstOrDefault(p => p.PlayerId == playerId).Weapon)
             };
 
             foreach (var armor in await this.Context.PlayersArmors.Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<EquipableFullViewModel>(this.Mapper.ConfigurationProvider).ToListAsync())
