@@ -1,11 +1,13 @@
 ﻿namespace Application.Services.Game.Items
 {
     using Application.Common.Interfaces;
+    using Application.Common.Query_Helpers;
     using Application.Common.Service_Helpers;
     using Application.Services.Game.Items.Models;
     using Application.Services.Interfaces.Game.Items;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Domain.Entities.Game.Units;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
@@ -96,6 +98,11 @@
                 "Weapon" => await this.Context.Weapons.ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ToArrayAsync(),
                 _ => await this.Context.Consumeables.ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ToArrayAsync(),
             };
+        }
+
+        public async Task<IEnumerable<ItemMinViewModel>> GetSorted(string criteria, string condition, double value)
+        {
+            return await this.MapCollection(new QuerySorter<Player>().Execute(this.Context.Players, criteria, condition, value));
         }
     }
 }

@@ -28,6 +28,8 @@
 
         public string Name { get; set; }
 
+        public string Element { get; set; }
+
         public double ManaRequirement { get; set; }
 
         public double Duration { get; set; }

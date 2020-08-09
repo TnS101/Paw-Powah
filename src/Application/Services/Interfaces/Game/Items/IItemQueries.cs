@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IItemQueries
+    public interface IItemQueries : ISorted<ItemMinViewModel>
     {
         Task<IEnumerable<ItemMinViewModel>> GetInventory(long playerId);
 

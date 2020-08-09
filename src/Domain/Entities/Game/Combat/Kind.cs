@@ -22,6 +22,14 @@
 
         public double IncreaseAmount { get; set; }
 
+        public double HealthAmplifier { get; set; }
+
+        public double ManaAmplifier { get; set; }
+
+        public double AttackPowerAmplifier { get; set; }
+
+        public double MagicPowerAmplifier { get; set; }
+
         public ICollection<Player> Players { get; set; }
     }
 }

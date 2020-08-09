@@ -2,9 +2,9 @@
 {
     using System.Linq;
 
-    public class Sorter<T> where T : class
+    public class QuerySorter<Entity> where Entity : class
     {
-        public IQueryable<T> Execute(IQueryable<T> collection, string criteria, string condition, double value) 
+        public IQueryable<Entity> Execute(IQueryable<Entity> collection, string criteria, string condition, double value) 
         {
             var property = collection.FirstOrDefault().GetType().GetProperty(criteria);
             return condition switch

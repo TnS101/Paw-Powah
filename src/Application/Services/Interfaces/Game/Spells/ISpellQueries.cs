@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface ISpellQueries : IQuery<SpellFullViewModel, SpellMinViewModel>
+    public interface ISpellQueries : IQuery<SpellFullViewModel, SpellMinViewModel>, ISorted<SpellMinViewModel>
     {
         Task<IEnumerable<SpellMinViewModel>> GetPlayerSpells(long playerId);
     }
