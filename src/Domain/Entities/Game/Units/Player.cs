@@ -40,19 +40,43 @@
 
         public double AttackPower { get; set; }
 
+        public double CurrentAttackPower { get; set; }
+
         public double MagicPower { get; set; }
+
+        public double CurrentMagicPower { get; set; }
 
         public double HealthRegen { get; set; }
 
+        public double CurrentHealthRegen { get; set; }
+
         public double ManaRegen { get; set; }
+
+        public double CurrentManaRegen { get; set; }
 
         public double CritChance { get; set; }
 
+        public double CurrentCritChance { get; set; }
+
         public double AttackSpeed { get; set; }
+
+        public double CurrentAttackSpeed { get; set; }
 
         public double MovementSpeed { get; set; }
 
+        public double CurrentMovementSpeed { get; set; }
+
         public double Tenacity { get; set; }
+
+        public double CurrentTenacity { get; set; }
+
+        public double Armor { get; set; }
+
+        public double CurrentArmor { get; set; }
+
+        public double Resistance { get; set; }
+
+        public double CurrentResistance { get; set; }
 
         public int InventoryCapacity { get; set; }
 
@@ -79,10 +103,6 @@
         public double XP { get; set; }
 
         public double XPCap { get; set; }
-
-        public double Armor { get; set; }
-
-        public double Resistance { get; set; }
 
         public ICollection<PlayerAmulets> PlayerAmulets { get; set; }
 
