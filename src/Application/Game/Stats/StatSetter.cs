@@ -3,24 +3,25 @@
     using Domain.Entities.Game.Combat;
     using Domain.Entities.Game.Units;
 
-    public class StatSet
+    public class StatSetter
     {
-        public Player PlayerStatSet(BattleClass battleClass, Player player, string kindStatType, double kindStatAmount)
+        public Player PlayerStatSet(BattleClass battleClass, Player player, Kind kind)
         {
-            player.MaxHP = battleClass.MaxHP;
-            player.CurrentHP = battleClass.MaxHP;
+            player.MaxHP = battleClass.MaxHP * kind.HealthAmplifier;
             player.HealthRegen = battleClass.HealthRegen;
-            player.MaxMana = battleClass.MaxMana;
-            player.CurrentMana = battleClass.MaxMana;
+            player.MaxMana = battleClass.MaxMana * kind.ManaAmplifier;
             player.ManaRegen = battleClass.ManaRegen;
-            player.AttackPower = battleClass.AttackPower;
-            player.MagicPower = battleClass.MagicPower;
+            player.AttackPower = battleClass.AttackPower * kind.AttackPowerAmplifier;
+            player.MagicPower = battleClass.MagicPower * kind.MagicPowerAmplifier;
             player.Armor = battleClass.Armor;
             player.Resistance = battleClass.Resistance;
             player.CritChance = battleClass.CritChance;
+            player.AttackSpeed = battleClass.AttackSpeed;
+            player.MovementSpeed = battleClass.MovementSpeed;
             player.ImagePath = battleClass.ImagePath;
 
-            new StatProcessor().Execute(player, kindStatType, kindStatAmount, "+");
+            new StatResetter().Execute(player);
+            new StatProcessor().Execute(player, kind.IncreaseStatType, kind.IncreaseAmount, "+");
 
             return player;
         }
