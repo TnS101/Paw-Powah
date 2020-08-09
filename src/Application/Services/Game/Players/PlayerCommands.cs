@@ -23,8 +23,7 @@
             var battleClass = await this.Context.BattleClasses.FindAsync(input.ClassId);
             var kind = await this.Context.Kinds.FindAsync(input.KindId);
 
-            new StatSet().PlayerStatSet(battleClass, player, kind.IncreaseStatType, kind.IncreaseAmount);
-
+            this.Context.Players.Add(new StatSetter().PlayerStatSet(battleClass, player, kind));
             await this.Context.SaveChangesAsync(CancellationToken.None);
         }
 

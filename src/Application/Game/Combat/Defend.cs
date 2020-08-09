@@ -8,10 +8,6 @@
 
     public class Defend
     {
-        public Defend()
-        {
-        }
-
         public async Task Execute(IUnit unit, IPawContext context)
         {
             unit = await this.FindUnit(unit, context);

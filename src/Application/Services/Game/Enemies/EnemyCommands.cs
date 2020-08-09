@@ -81,7 +81,7 @@
 
             var baseEnemy = baseEnemies[new Random().Next(baseEnemies.Length)];
 
-            var generatedEnemyId = context.GeneratedEnemies.Add(new StatSet().EnemyStatSet(baseEnemy, refLevel)).Entity.Id;
+            var generatedEnemyId = context.GeneratedEnemies.Add(new StatSetter().EnemyStatSet(baseEnemy, refLevel)).Entity.Id;
 
             var dbSpells = context.Spells.Where(s => s.EnemyId == baseEnemy.Id).AsNoTracking();
 
