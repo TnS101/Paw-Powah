@@ -27,10 +27,7 @@
             return this.MapInfo(await this.Context.Enemies.FindAsync(id));
         }
 
-        public async Task<GeneratedEnemyViewModel> GetGeneratedEnemy(long id)
-        {
-            return this.Mapper.Map<GeneratedEnemyViewModel>(await this.Context.GeneratedEnemies.FindAsync(id));
-        }
+        
 
         public async Task<IEnumerable<EnemyMinViewModel>> GetSorted(string criteria, string condition, double value)
         {

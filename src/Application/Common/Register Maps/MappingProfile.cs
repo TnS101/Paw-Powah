@@ -2,6 +2,7 @@
 {
     using Application.Services.Common.Users.ViewModels;
     using Application.Services.Game.Enemies.Models;
+    using Application.Services.Game.GeneratedEnemies.Models;
     using Application.Services.Game.Items.Models;
     using Application.Services.Game.Players.Models;
     using Application.Services.Game.Spells.Models;
@@ -17,6 +18,7 @@
         {
             this.CreateMap<AppUser, UserMinViewModel>();
             this.CreateMap<Enemy, EnemyMinViewModel>();
+            this.CreateMap<Enemy, EnemyFullViewModel>();
             this.CreateMap<GeneratedEnemy, GeneratedEnemyViewModel>();
 
             this.CreateMap<Player, PlayerFullViewModel>().ForMember(p => p.KindName, opt => opt.Ignore()).ForMember(p => p.ClassName, opt => opt.Ignore());

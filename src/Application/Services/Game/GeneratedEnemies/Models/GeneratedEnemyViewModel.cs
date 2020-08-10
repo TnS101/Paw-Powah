@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Game.Enemies.Models
+﻿namespace Application.Services.Game.GeneratedEnemies.Models
 {
     public class GeneratedEnemyViewModel
     {

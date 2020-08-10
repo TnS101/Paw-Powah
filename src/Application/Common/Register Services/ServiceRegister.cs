@@ -2,10 +2,12 @@
 {
     using Application.Services.Common.Identity;
     using Application.Services.Game.Enemies;
+    using Application.Services.Game.GeneratedEnemies;
     using Application.Services.Game.Items;
     using Application.Services.Game.Players;
     using Application.Services.Game.Spells;
     using Application.Services.Interfaces.Game.Enemies;
+    using Application.Services.Interfaces.Game.GeneratedEnemies;
     using Application.Services.Interfaces.Game.Items;
     using Application.Services.Interfaces.Game.Players;
     using Application.Services.Interfaces.Game.Spells;
@@ -21,6 +23,9 @@
 
             services.AddScoped<IEnemyCommands, EnemyCommands>();
             services.AddScoped<IEnemyQueries, EnemyQueries>();
+
+            services.AddScoped<IGeneratedEnemyCommands, GeneratedEnemyCommands>();
+            services.AddScoped<IGeneratedEnemyQueries, GeneratedEnemyQueries>();
 
             services.AddScoped<IItemCommands, ItemCommands>();
             services.AddScoped<IItemQueries, ItemQueries>();
