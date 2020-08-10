@@ -48,12 +48,14 @@
             await context.SaveChangesAsync(CancellationToken.None);
         }
 
-        public async Task CheckCD(long unitId, int spellId, IVolatileContext volatileContext)
+        public async Task<bool> CheckCD(long unitId, int spellId, IVolatileContext volatileContext)
         {
             if (await volatileContext.Cooldowns.AnyAsync(c => c.UnitId == unitId && c.SpellId == spellId))
             {
-                return;
+                return false;
             }
+
+            return true;
         }
 
         private async Task BuffHandler(long unitId, string buffType, double buffPower, string operation, IPawContext context)

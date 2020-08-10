@@ -69,7 +69,7 @@
 
         public double CurrentManaRegen { get; set; }
 
-        public double CurrentArmor { get; set; }
+        public double Armor { get; set; }
 
         public double CurrentResistance { get; set; }
 
@@ -77,7 +77,7 @@
 
         public double CurrentAttackSpeed { get; set; }
 
-        public double CurrentMovementSpeed { get; set; }
+        public double MovementSpeed { get; set; }
 
         public double CurrentTenacity { get; set; }
 
