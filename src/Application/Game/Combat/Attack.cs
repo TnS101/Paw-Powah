@@ -6,7 +6,7 @@
     {
         public Attack(IUnit attacker, IUnit defender)
         {
-            defender.CurrentHP -= attacker.AttackPower * new CriticalStrikeApplier().Execute(attacker.AttackPower) - defender.Armor;
+            defender.CurrentHP -= attacker.CurrentAttackPower * new CriticalStrikeApplier().Execute(attacker.CurrentAttackPower) - defender.CurrentArmor;
         }
     }
 }

@@ -24,7 +24,7 @@
 
                 case "ManaRegen": unit.ManaRegen = this.OperationResult(unit.ManaRegen, mathOperation, power * unit.ManaRegen); break;
 
-                case "Armor": unit.Armor += this.OperationResult(unit.Armor, mathOperation, power * unit.Armor); break;
+                case "Armor": unit.CurrentArmor += this.OperationResult(unit.CurrentArmor, mathOperation, power * unit.CurrentArmor); break;
 
                 case "Resistance": unit.Resistance = this.OperationResult(unit.Resistance, mathOperation, power * unit.Resistance); break;
 
@@ -32,7 +32,7 @@
 
                 case "AttackSpeed": unit.AttackSpeed = this.OperationResult(unit.AttackSpeed, mathOperation, power * unit.AttackSpeed); break;
 
-                case "MovementSpeed": unit.MovementSpeed = this.OperationResult(unit.MovementSpeed, mathOperation, power * unit.MovementSpeed); break;
+                case "MovementSpeed": unit.CurrentMovementSpeed = this.OperationResult(unit.CurrentMovementSpeed, mathOperation, power * unit.CurrentMovementSpeed); break;
 
                 case "Tenacity": unit.Tenacity = this.OperationResult(unit.Tenacity, mathOperation, power * unit.Tenacity); break;
             }

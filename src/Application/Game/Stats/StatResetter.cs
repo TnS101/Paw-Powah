@@ -13,10 +13,10 @@
             player.CurrentAttackPower = player.AttackPower;
             player.CurrentAttackPower = player.AttackSpeed;
             player.CurrentMagicPower = player.MagicPower;
-            player.CurrentMovementSpeed = player.MovementSpeed;
+            player.CurrentMovementSpeed = player.CurrentMovementSpeed;
             player.CurrentTenacity = player.Tenacity;
             player.CurrentCritChance = player.CritChance;
-            player.CurrentArmor = player.Armor;
+            player.CurrentArmor = player.CurrentArmor;
             player.CurrentResistance = player.Resistance;
         }
     }
