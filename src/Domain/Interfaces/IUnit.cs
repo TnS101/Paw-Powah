@@ -69,5 +69,7 @@
         int Gold { get; set; }
 
         string ImagePath { get; set; }
+
+        string Type { get; set; }
     }
 }

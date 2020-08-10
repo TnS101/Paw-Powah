@@ -8,7 +8,6 @@
     using Domain.Entities.Game.ManyToMany;
     using Domain.Interfaces;
     using Microsoft.EntityFrameworkCore;
-    using System.Threading;
     using System.Threading.Tasks;
 
     public class ItemCommands : BaseService, IItemCommands
@@ -90,7 +89,7 @@
                 });
             }
 
-            await this.Context.SaveChangesAsync(CancellationToken.None);
+            await this.SaveAsync();
         }
 
         public async Task Delete(string type, int id)
@@ -112,7 +111,7 @@
                 this.Context.Consumeables.Remove(await this.Context.Consumeables.FindAsync(id));
             }
 
-            await this.Context.SaveChangesAsync(CancellationToken.None);
+            await this.SaveAsync();
         }
 
         public async Task Update(string type, int id, ItemInputModel input)
@@ -190,7 +189,7 @@
                 this.ItemNullCheck(consumeable, input);
             }
 
-            await this.Context.SaveChangesAsync(CancellationToken.None);
+            await this.SaveAsync();
         }
 
         public async Task Loot(long playerId, string type, int id, int amount)
@@ -279,6 +278,8 @@
                     inventory.Amount += amount;
                 }
             }
+
+            await this.SaveAsync();
         }
 
         public async Task Buy(long playerId, string type, int id, int amount)
@@ -295,7 +296,7 @@
 
             player.Gold -= item.BuyPrice * amount;
 
-            await this.Context.SaveChangesAsync(CancellationToken.None);
+            await this.SaveAsync();
         }
 
         public async Task Sell(long playerId, string type, int id, int amount)
@@ -364,7 +365,7 @@
 
             player.Gold += item.SellPrice * amount;
 
-            await this.Context.SaveChangesAsync(CancellationToken.None);
+            await this.SaveAsync();
         }
 
         private void ItemNullCheck(IItem item, ItemInputModel input)

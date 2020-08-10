@@ -7,9 +7,9 @@
     using AutoMapper;
     using System.Threading.Tasks;
 
-    public class GeneratedEnemyQueries : MapService<GeneratedEnemyViewModel, GeneratedEnemyViewModel>,IGeneratedEnemyQueries
+    public class GeneratedEnemyQueries : MapService<GeneratedEnemyViewModel, GeneratedEnemyViewModel>, IGeneratedEnemyQueries
     {
-        public GeneratedEnemyQueries(Mapper mapper, IPawContext context)
+        public GeneratedEnemyQueries(IMapper mapper, IPawContext context)
             : base(mapper, context)
         {
         }

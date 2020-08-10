@@ -61,6 +61,8 @@
 
         public string ImagePath { get; set; }
 
+        public string Type { get; set; }
+
         public double CurrentAttackPower { get; set; }
 
         public double CurrentMagicPower { get; set; }

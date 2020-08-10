@@ -104,6 +104,10 @@
 
         public double XPCap { get; set; }
 
+        public string Type { get; set; }
+
+        public string ImagePath { get; set; }
+
         public ICollection<PlayerAmulets> PlayerAmulets { get; set; }
 
         public ICollection<PlayerArmors> PlayerArmors { get; set; }
@@ -113,7 +117,5 @@
         public ICollection<PlayerWeapons> PlayerWeapons { get; set; }
 
         public ICollection<PlayerSpells> PlayerSpells { get; set; }
-
-        public string ImagePath { get; set; }
     }
 }

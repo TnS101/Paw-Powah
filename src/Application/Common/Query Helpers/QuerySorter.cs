@@ -6,7 +6,6 @@
     {
         public IQueryable<Entity> Execute(IQueryable<Entity> collection, string criteria, string condition, double value) 
         {
-            var property = collection.FirstOrDefault().GetType().GetProperty(criteria);
             return condition switch
             {
                 ">" => collection.Where(e => (double)e.GetType().GetProperty(criteria).GetValue(e, null) > value),

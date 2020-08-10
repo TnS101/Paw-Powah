@@ -6,7 +6,7 @@
     {
         Task Attack(long attackerId, long targetId);
 
-        Task Defend(long unitId);
+        Task Defend(long unitId, string opeartion);
 
         Task Regenerate(long unitId);
 

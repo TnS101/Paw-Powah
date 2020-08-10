@@ -4,6 +4,10 @@
 
     public class Defend
     {
+        public Defend()
+        {
+        }
+
         public void Execute(IUnit unit)
         {
             unit.CurrentArmor += unit.CurrentArmor * 0.4;
