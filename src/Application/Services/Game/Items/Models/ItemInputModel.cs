@@ -1,9 +1,14 @@
 ﻿namespace Application.Services.Game.Items.Models
 {
+    using System.ComponentModel.DataAnnotations;
     public class ItemInputModel
     {
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(50)]
         public string Slot { get; set; }
 
         public double HealthIncrease { get; set; }
@@ -40,10 +45,14 @@
 
         public double Cooldown { get; set; }
 
+        [Required]
+        [StringLength(50)]
         public string BuffStatType { get; set; }
 
         public double BuffDuration { get; set; }
 
+        [Required]
+        [StringLength(200)]
         public string ImagePath { get; set; }
     }
 }

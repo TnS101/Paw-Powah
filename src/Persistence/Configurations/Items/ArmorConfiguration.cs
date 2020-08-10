@@ -17,6 +17,10 @@
             builder.Property(e => e.Slot)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder.Property(e => e.ImagePath)
+                .HasMaxLength(200)
+                .IsRequired();
         }
     }
 }

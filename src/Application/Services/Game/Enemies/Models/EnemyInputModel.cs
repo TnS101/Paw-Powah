@@ -1,7 +1,11 @@
 ﻿namespace Application.Services.Game.Enemies.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class EnemyInputModel
     {
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
         public double MaxHP { get; set; }
@@ -28,6 +32,8 @@
 
         public double Resistance { get; set; }
 
+        [Required]
+        [StringLength(200)]
         public string ImagePath { get; set; }
     }
 }
