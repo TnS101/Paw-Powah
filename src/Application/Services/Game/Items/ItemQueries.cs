@@ -24,10 +24,10 @@
         {
             var result = new HashSet<ItemMinViewModel>();
 
-            await this.Context.PlayersAmulets.Where(p => p.PlayerId == playerId).Select(a => a.Amulet).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-            await this.Context.PlayersArmors.Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-            await this.Context.PlayersWeapons.Where(p => p.PlayerId == playerId).Select(w => w.Weapon).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-            await this.Context.PlayersConsumeables.Where(p => p.PlayerId == playerId).Select(c => c.Consumeable).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
+            await this.Context.PlayersAmulets.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Amulet).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
+            await this.Context.PlayersArmors.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
+            await this.Context.PlayersWeapons.AsNoTracking().Where(p => p.PlayerId == playerId).Select(w => w.Weapon).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
+            await this.Context.PlayersConsumeables.AsNoTracking().Where(p => p.PlayerId == playerId).Select(c => c.Consumeable).AsNoTracking().ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
 
             return result;
         }
@@ -56,7 +56,7 @@
                 this.MapInfo(this.Context.PlayersWeapons.FirstOrDefault(p => p.PlayerId == playerId).Weapon)
             };
 
-            foreach (var armor in await this.Context.PlayersArmors.Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<EquipableFullViewModel>(this.Mapper.ConfigurationProvider).ToListAsync())
+            foreach (var armor in await this.Context.PlayersArmors.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<EquipableFullViewModel>(this.Mapper.ConfigurationProvider).ToListAsync())
             {
                 result.Add(armor);
             }
@@ -68,16 +68,16 @@
         {
             return type switch
             {
-                "Amulet" => await this.MapCollection(this.Context.Amulets),
-                "Armor" => await this.MapCollection(this.Context.Armors),
-                "Weapon" => await this.MapCollection(this.Context.Weapons),
-                _ => await this.MapCollection(this.Context.Consumeables),
+                "Amulet" => await this.MapCollection(this.Context.Amulets.AsNoTracking()),
+                "Armor" => await this.MapCollection(this.Context.Armors.AsNoTracking()),
+                "Weapon" => await this.MapCollection(this.Context.Weapons.AsNoTracking()),
+                _ => await this.MapCollection(this.Context.Consumeables.AsNoTracking()),
             };
         }
 
         public async Task<IEnumerable<ItemMinViewModel>> GetSorted(string criteria, string condition, double value)
         {
-            return await this.MapCollection(new QuerySorter<Player>().Execute(this.Context.Players, criteria, condition, value));
+            return await this.MapCollection(new QuerySorter<Player>().Execute(this.Context.Players.AsNoTracking(), criteria, condition, value));
         }
     }
 }

@@ -7,6 +7,7 @@
     using Application.Services.Interfaces.Game.Players;
     using AutoMapper;
     using Domain.Entities.Game.Units;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -19,12 +20,12 @@
 
         public async Task<IEnumerable<PlayerMinViewModel>> GetAll()
         {
-            return await this.MapCollection(this.Context.Players);
+            return await this.MapCollection(this.Context.Players.AsNoTracking());
         }
 
         public async Task<IEnumerable<PlayerMinViewModel>> GetSorted(string criteria, string condition, double value)
         {
-            return await this.MapCollection(new QuerySorter<Player>().Execute(this.Context.Players, criteria, condition, value));
+            return await this.MapCollection(new QuerySorter<Player>().Execute(this.Context.Players.AsNoTracking(), criteria, condition, value));
         }
 
         public async Task<PlayerFullViewModel> GetInfo(long id)

@@ -7,6 +7,7 @@
     using Application.Services.Interfaces.Game.Spells;
     using AutoMapper;
     using Domain.Entities.Game.Combat;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -20,7 +21,7 @@
 
         public async Task<IEnumerable<SpellMinViewModel>> GetAll()
         {
-            return await this.MapCollection(this.Context.Spells);
+            return await this.MapCollection(this.Context.Spells.AsNoTracking());
         }
 
         public async Task<SpellFullViewModel> GetInfo(long id)
@@ -30,12 +31,12 @@
 
         public async Task<IEnumerable<SpellMinViewModel>> GetPlayerSpells(long playerId)
         {
-            return await this.MapCollection(this.Context.PlayersSpells.Where(p => p.PlayerId == playerId).Select(s => s.Spell));
+            return await this.MapCollection(this.Context.PlayersSpells.AsNoTracking().Where(p => p.PlayerId == playerId).Select(s => s.Spell));
         }
 
         public async Task<IEnumerable<SpellMinViewModel>> GetSorted(string criteria, string condition, double value)
         {
-            return await this.MapCollection(new QuerySorter<Spell>().Execute(this.Context.Spells, criteria, condition, value));
+            return await this.MapCollection(new QuerySorter<Spell>().Execute(this.Context.Spells.AsNoTracking(), criteria, condition, value));
         }
     }
 }

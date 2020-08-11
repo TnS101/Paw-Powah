@@ -58,9 +58,10 @@
             await this.SaveAsync();
         }
 
-        public Task SpellCast(long casterId, long targetId)
+        public async Task SpellCast(long casterId, long targetId)
         {
-            throw new System.NotImplementedException();
+            var caster = await this.Context.Players.FindAsync(casterId);
+            var target = await this.Context.GeneratedEnemies.FindAsync(casterId);
         }
 
         public async Task Create(PlayerInputModel input)

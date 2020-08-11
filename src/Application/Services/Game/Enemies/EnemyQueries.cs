@@ -7,6 +7,7 @@
     using Application.Services.Interfaces.Game.Enemies;
     using AutoMapper;
     using Domain.Entities.Game.Units;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@
 
         public async Task<IEnumerable<EnemyMinViewModel>> GetAll()
         {
-            return await this.MapCollection(this.Context.Enemies);
+            return await this.MapCollection(this.Context.Enemies.AsNoTracking());
         }
 
         public async Task<EnemyFullViewModel> GetInfo(long id)
@@ -31,7 +32,7 @@
 
         public async Task<IEnumerable<EnemyMinViewModel>> GetSorted(string criteria, string condition, double value)
         {
-            return await this.MapCollection(new QuerySorter<Enemy>().Execute(this.Context.Enemies, criteria, condition, value));
+            return await this.MapCollection(new QuerySorter<Enemy>().Execute(this.Context.Enemies.AsNoTracking(), criteria, condition, value));
         }
     }
 }
