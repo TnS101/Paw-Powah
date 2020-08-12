@@ -20,16 +20,17 @@
         {
         }
 
-        public async Task<IEnumerable<ItemMinViewModel>> GetInventory(long playerId)
+        public async Task<IEnumerable<IEnumerable<ItemMinViewModel>>> GetInventory(long playerId)
         {
-            var result = new HashSet<ItemMinViewModel>();
+            var amulets = await this.MapCollection(this.Context.PlayersAmulets.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Amulet));
+            var armor = await this.MapCollection(this.Context.PlayersArmors.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Armor));
+            var weapons = await this.MapCollection(this.Context.PlayersWeapons.AsNoTracking().Where(p => p.PlayerId == playerId).Select(w => w.Weapon));
+            var consumeables = await this.MapCollection(this.Context.PlayersConsumeables.AsNoTracking().Where(p => p.PlayerId == playerId).Select(c => c.Consumeable));
 
-            await this.Context.PlayersAmulets.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Amulet).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-            await this.Context.PlayersArmors.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-            await this.Context.PlayersWeapons.AsNoTracking().Where(p => p.PlayerId == playerId).Select(w => w.Weapon).ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-            await this.Context.PlayersConsumeables.AsNoTracking().Where(p => p.PlayerId == playerId).Select(c => c.Consumeable).AsNoTracking().ProjectTo<ItemMinViewModel>(this.Mapper.ConfigurationProvider).ForEachAsync(e => result.Add(e));
-
-            return result;
+            return new HashSet<IEnumerable<ItemMinViewModel>>
+            {
+                amulets, armor, weapons, consumeables
+            };
         }
 
         public async Task<ConsumeableFullViewModel> GetConsumeable(int id)
@@ -50,18 +51,13 @@
 
         public async Task<IEnumerable<EquipableFullViewModel>> GetEquipment(long playerId)
         {
-            var result = new HashSet<EquipableFullViewModel>
+            var armor = await this.Context.PlayersArmors.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<EquipableFullViewModel>(this.Mapper.ConfigurationProvider).ToArrayAsync();
+
+            return new HashSet<EquipableFullViewModel>(armor)
             {
                 this.MapInfo(this.Context.PlayersAmulets.FirstOrDefault(p => p.PlayerId == playerId).Amulet),
                 this.MapInfo(this.Context.PlayersWeapons.FirstOrDefault(p => p.PlayerId == playerId).Weapon)
             };
-
-            foreach (var armor in await this.Context.PlayersArmors.AsNoTracking().Where(p => p.PlayerId == playerId).Select(a => a.Armor).ProjectTo<EquipableFullViewModel>(this.Mapper.ConfigurationProvider).ToListAsync())
-            {
-                result.Add(armor);
-            }
-
-            return result;
         }
 
         public async Task<IEnumerable<ItemMinViewModel>> GetAllItems(string type)

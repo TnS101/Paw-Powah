@@ -6,7 +6,7 @@
 
     public interface IItemQueries : ISorted<ItemMinViewModel>
     {
-        Task<IEnumerable<ItemMinViewModel>> GetInventory(long playerId);
+        Task<IEnumerable<IEnumerable<ItemMinViewModel>>> GetInventory(long playerId);
 
         Task<EquipableFullViewModel> GetEquipable(int id, string type);
 
