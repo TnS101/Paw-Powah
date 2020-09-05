@@ -27,7 +27,7 @@
 
         protected async Task<IEnumerable<Min>> MapCollection(IQueryable collection) 
         {
-            return await collection.ProjectTo<Min>(this.Mapper.ConfigurationProvider).ToListAsync();
+            return await collection.ProjectTo<Min>(this.Mapper.ConfigurationProvider).ToArrayAsync();
         }
     }
 }
